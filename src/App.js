@@ -1,11 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
-
+import { useState, useEffect } from 'react'
+import Map from './Map';
+import Result from './Result';
+import Search from './Search';
 
 function App() {
   const [message, setMessage] = useState("default");
   const url = "https://mu-life-back.herokuapp.com/"
+  const map_api = process.env.GOOGLE_MAP_API_KEY;
+
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
@@ -15,11 +18,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2> {message} </h2>
-      </header>
-    </div>
+    <Search />
+    <Map map_api={map_api}></Map>
+    <button>送信</button>
+    <Result/>
+  </div>
   );
 }
 
