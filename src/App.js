@@ -1,13 +1,16 @@
 import './App.css';
-import { useState, useEffect } from 'react'
-
-import Result from './Result';
+import { useState, useEffect, createContext } from 'react'
 import Search from './Search';
+import Result from './Result';
+
+
+export const SongsContext = createContext({});
+
 
 function App() {
   const [message, setMessage] = useState("default");
+  const [songs, setSongs] = useState("no songs");
   const url = "https://mu-life-back.herokuapp.com/"
-  const map_api = process.env.GOOGLE_MAP_API_KEY;
 
   useEffect(() => {
     fetch(url)
@@ -17,9 +20,13 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-    <Search />
-  </div>
+    <>
+    <SongsContext.Provider value={{songs, setSongs}}>
+      <div className="App">
+      <Search />
+      </div>
+    </SongsContext.Provider>
+    </>
   );
 }
 

@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { SongsContext } from './App';
 
 const Result = () => {
+  const {songs, setSongs} = useContext(SongsContext);
+  const navigate = useNavigate();
+  console.log("In Result: " + songs)
+  useEffect(() => {
+    console.log("In useEffect: " + songs)
+  }, [songs]);
   return (
     <div className='result'>
         <div className='result-inner'>
@@ -10,6 +18,8 @@ const Result = () => {
                     以下の5曲をおすすめした理由を、まとめてここに表示。以下の5曲をおすすめした理由を、まとめてここに表示。以下の5曲をおすすめした理由を、まとめてここに表示。
                 </p>
             </div>
+            {/* <p>_songs: {_songs}</p> */}
+            <p>songs: {songs}</p>
             <div className='musicList'>
                 <div className='musicList-inner'>
                     <div className='music-item'>
@@ -35,6 +45,7 @@ const Result = () => {
                 </div>
             </div>
         </div>
+        <button onClick={() => navigate('/')}>戻る</button>
     </div>
   )
 }
