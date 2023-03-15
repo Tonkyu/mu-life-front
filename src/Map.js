@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import CurrentLocation from './CurrentLocation';
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 
+const map_api_key = process.env.GOOGLE_MAP_API_KEY;
 class GoogleMap extends Component {
   state = {
     lat: null,

@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react'
-import Map from './Map';
+
 import Result from './Result';
 import Search from './Search';
 
@@ -19,9 +19,6 @@ function App() {
   return (
     <div className="App">
     <Search />
-    <Map map_api={map_api}></Map>
-    <button>送信</button>
-    <Result/>
   </div>
   );
 }
