@@ -10,29 +10,30 @@ const Search = () => {
   // console.log("In Search: " + songs)
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    navigate('/result');
     const requestOptions ={
       method: 'POST',
       headers:{'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     };
-    // const url = "https://mu-life-back.herokuapp.com/api/recommend";
-    const url = "https://mu-life-back.herokuapp.com/api/recommend-dummy";
-    console.log("submit");
+    const url = "https://mu-life-back.herokuapp.com/api/recommend";
+    // const url = "https://mu-life-back.herokuapp.com/api/recommend-dummy";
     fetch(url, requestOptions)
     .then((response)=> response.json())
-    .then((responseJson) =>{
-        console.log("response" + responseJson);
-        setSongs(responseJson);
+    .then((responseJson) => JSON.stringify(responseJson))
+    .then((data) =>{
+        console.log("response: " + data);
+        navigate('/result', {state: {songs: data}})
     })
     .catch((e)=>{
       console.log(e);
       console.log("error");
     })
   };
+
   useEffect(() => {
-    console.log(songs);
+    console.log("songs: " + songs);
   }, [songs]);
+
   return (
     <>
     <SongsContext.Provider value={{songs, setSongs}}>

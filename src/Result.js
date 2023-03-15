@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SongsContext } from './App';
 
 const Result = () => {
-  const {songs, setSongs} = useContext(SongsContext);
   const navigate = useNavigate();
-  console.log("In Result: " + songs)
-  useEffect(() => {
-    console.log("In useEffect: " + songs)
-  }, [songs]);
+  const location = useLocation();
+  const responseState = location.state;
+
+  console.log("In Result: " + responseState.songs);
+
   return (
     <div className='result'>
         <div className='result-inner'>
@@ -19,7 +19,7 @@ const Result = () => {
                 </p>
             </div>
             {/* <p>_songs: {_songs}</p> */}
-            <p>songs: {songs}</p>
+            <p>songs: {responseState.songs}</p>
             <div className='musicList'>
                 <div className='musicList-inner'>
                     <div className='music-item'>
