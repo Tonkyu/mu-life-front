@@ -7,8 +7,6 @@ const Result = () => {
   const location = useLocation();
   const responseState = location.state;
 
-  console.log("In Result: " + responseState.songs);
-
   return (
     <div className='result'>
         <div className='result-inner'>
@@ -19,6 +17,7 @@ const Result = () => {
                 </p>
             </div>
             {/* <p>_songs: {_songs}</p> */}
+            <p>request: {responseState.request}</p>
             <p>songs: {responseState.songs}</p>
             <div className='musicList'>
                 <div className='musicList-inner'>
