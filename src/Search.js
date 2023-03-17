@@ -2,14 +2,30 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { SongsContext } from './App';
+import Map from './Map'
 
 const Search = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const {songs, setSongs} = useContext(SongsContext);
   const [isDummy, setIsDummy] = useState(false);
+  const [weather, setWeather] = useState(undefined);
+  const today = new Date();
 
-  // console.log("In Search: " + songs)
+  const loadWeather = () => {
+    const weather_url = "https://api.openweathermap.org/data/2.5/weather?";
+    const params = {
+      "q": "tokyo",
+      "appid": "81924c90f4235d713c45a3c4ec2fbe83",
+      "units": "metric",
+      "lang": "ja",
+    };
+    const query_params = new URLSearchParams(params);
+    fetch(weather_url + query_params)
+    .then((response) => response.json())
+    .then((responseJson) => responseJson.weather[0].description)
+    .then((data) => setWeather(data))
+  }
+
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     const requestOptions ={
@@ -35,25 +51,26 @@ const Search = () => {
   };
 
   useEffect(() => {
-    console.log("songs: " + songs);
-  }, [songs]);
+    loadWeather();
+  }, []);
 
   return (
-    <>
-      <form name="form" onSubmit={handleSubmit(onSubmit)}>
-        月<input type="text" name="month" defaultValue="1" ref={register}/>
-        <br></br>
-        日<input type="text" name="day" defaultValue="1" ref={register}/>
-        <br></br>
-        天気<input type="text" name="weather" defaultValue="晴れ" ref={register}/>
-        <br></br>
-        場所<input type="text" name="location" defaultValue="鴨川" ref={register}/>
-        <br></br>
-        {/* <Map /> */}
-        <button type="submit"> 送信! </button>
-        <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
-      </form>
-    </>
+  <>
+    <form name="form" onSubmit={handleSubmit(onSubmit)}>
+      月<input type="text" name="month" defaultValue={today.getMonth()+1} ref={register}/>
+      <br></br>
+      日<input type="text" name="day" defaultValue={today.getDate()} ref={register}/>
+      <br></br>
+      天気<input type="text" name="weather" defaultValue={weather} ref={register}/>
+      <br></br>
+      場所<input type="text" name="location" defaultValue="鴨川" ref={register}/>
+      <br></br>
+      <h3>{process.env.OPEN_WEATHER_API_KEY}</h3>
+      <Map />
+      <button type="submit"> 送信! </button>
+      <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
+    </form>
+  </>
   )
 }
 

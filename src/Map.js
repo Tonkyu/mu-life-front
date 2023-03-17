@@ -21,7 +21,7 @@ export default class DemoComponent extends Component {
 
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({
-          lat: parseFloat(position.coords.latitude),
+          lat: position.coords.latitude,
           lng: position.coords.longitude
         });
       const defaultMapOptions = {
