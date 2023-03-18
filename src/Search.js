@@ -1,21 +1,25 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
+import CurrentLocation from './CurrentLocation';
 import Map from './Map'
 
-// require('dotenv').config();
+
 
 const Search = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [isDummy, setIsDummy] = useState(false);
   const [weather, setWeather] = useState(undefined);
+  const [center, setCenter] = useState({lat: 35.6852, lng:139.7528});
+  const [loc, setLoc] = useState(undefined);
   const today = new Date();
 
-  const loadWeather = () => {
+  const loadWeather = (center) => {
     const weather_url = "https://api.openweathermap.org/data/2.5/weather?";
     const params = {
-      "q": "tokyo",
+      "lat": center.lat,
+      "lon": center.lng,
       "appid": process.env.REACT_APP_OPEN_WEATHER_API_KEY,
       "units": "metric",
       "lang": "ja",
@@ -25,8 +29,28 @@ const Search = () => {
     .then((response) => response.json())
     .then((responseJson) => responseJson.weather[0].description)
     .then((data) => setWeather(data))
+  };
+
+  const loadCenter = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      });
+    },
+    (err) => {
+      console.log(err);
+    });
   }
 
+  useEffect(() => {
+    loadCenter();
+  }, []);
+
+  useEffect(() => {
+    loadWeather(center);
+    CurrentLocation(center).then(value => setLoc(value));
+  }, [center]);
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     const requestOptions ={
@@ -51,10 +75,6 @@ const Search = () => {
     })
   };
 
-  useEffect(() => {
-    loadWeather();
-  }, []);
-
   return (
   <>
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
@@ -64,9 +84,9 @@ const Search = () => {
       <br></br>
       天気<input type="text" name="weather" defaultValue={weather} {...register("weather")}/>
       <br></br>
-      場所<input type="text" name="location" defaultValue="鴨川" {...register("location")}/>
+      場所<input type="text" name="location" defaultValue={loc} {...register("location")}/>
       <br></br>
-      <Map />
+      <Map center={center}/>
       <button type="submit"> 送信! </button>
       <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
     </form>

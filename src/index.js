@@ -1,13 +1,15 @@
 import React from 'react';
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import './index.css';
 import App from './App';
 import Result from './Result';
 import NoMatch from './NoMatch';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const root = document.getElementById('root');
-render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
   <BrowserRouter>
   <Routes>
@@ -16,6 +18,5 @@ render(
     <Route path="*" element={<NoMatch />} />
   </Routes>
   </BrowserRouter>
-  </React.StrictMode>,
-  root
+  </React.StrictMode>
 );

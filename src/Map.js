@@ -1,102 +1,39 @@
+import React from 'react'
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
+import { useCallback } from 'react';
+import { useState } from 'react';
 
-import React, { useState, useCallback, Component } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
-import CurrentLocation from './CurrentLocation';
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
 
-const loader = new Loader({
-  apiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
-  version: "weekly",
-  libraries: ["places"]
-});
 
-export default class DemoComponent extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {};
-  }
+const Map = ({center}) => {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY
+  });
 
-  componentDidMount() {
-      let self = this;
+  const [map, setMap] = useState(null)
+  const onLoad = useCallback(function callback(map) {
+    setMap(map);
+  }, [center]);
 
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        });
-      const defaultMapOptions = {
-          center: {
-              lat: this.state.lat,
-              lng: this.state.lng
-          },
-          zoom: 14
-      };
-      loader.load().then((google) => {
-          const map = new google.maps.Map(
-              self.googleMapDiv,
-              defaultMapOptions
-          );
-          this.setState({
-              google: google,
-              map: map
-          });
-      });
-    },
-    (err) => {
-      console.log(err);
-    });
-  }
+  const onUnmount = useCallback(function callback(map) {
+    setMap(null);
+  }, []);
 
-  render() {
-      return (
-          <div
-              ref={(ref) => { this.googleMapDiv = ref }}
-              style={{ height: '50vh', width: '320px', mergin: 'auto auto'}}>
-          </div>
-      )
-  }
+  return isLoaded ? (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={14}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+      >
+      </GoogleMap>
+  ) : <></>
 }
 
-// class GoogleMap extends Component {
-//   state = {
-//     lat: null,
-//     lng: null
-//   }
-
-//   componentDidMount() {
-//     navigator.geolocation.getCurrentPosition((position) => {
-//       this.setState({
-//         lat: position.coords.latitude,
-//         lng: position.coords.longitude
-//       });
-//     },
-//     (err) => {
-//       console.log(err);
-//     })
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <CurrentLocation _lat={this.state.lat} _lon={this.state.lng}/>
-//         <h4> Latitude : {this.state.lat} Longitude : {this.state.lng}</h4>
-//           <Map
-//             style={{ height: '50vh', width: '320px' , margin:'16vh auto'}}
-//             google = { this.props.google }
-//             zoom = { 14 }
-//             center = {{ lat: this.state.lat, lng: this.state.lng }}
-//             initialCenter = {{ lat: this.state.lat, lng: this.state.lng }}
-//             >
-
-//             <Marker
-//               title = { "現在地" }
-//               position = {{ lat: this.state.lat, lng: this.state.lng }}
-//             />
-//           </Map>
-//       </div>
-//     );
-//   }
-// }
-
-// export default GoogleApiWrapper({
-//   apiKey: ("AIzaSyCk_TPhjkNhCfUpJ1oC23OmRhrwjKxzh9g")
-// })(GoogleMap);
+export default Map
