@@ -50,7 +50,7 @@ export default class DemoComponent extends Component {
       return (
           <div
               ref={(ref) => { this.googleMapDiv = ref }}
-              style={{ height: '50vh', width: '320px', mergin: 'auto auto'}}>
+              style={{ height: '40vh', width: '320px', margin: '0 auto'}}>
           </div>
       )
   }

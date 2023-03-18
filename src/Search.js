@@ -57,14 +57,20 @@ const Search = () => {
   return (
   <>
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
-      月<input type="text" name="month" defaultValue={today.getMonth()+1} ref={register}/>
-      <br></br>
-      日<input type="text" name="day" defaultValue={today.getDate()} ref={register}/>
-      <br></br>
-      天気<input type="text" name="weather" defaultValue={weather} ref={register}/>
-      <br></br>
-      場所<input type="text" name="location" defaultValue="鴨川" ref={register}/>
-      <br></br>
+      <div className='date'>
+        <input type="text" name="month" defaultValue={today.getMonth()+1} ref={register}/>月
+        <input type="text" name="day" defaultValue={today.getDate()} ref={register}/>日
+      </div>
+      <div className='input'>
+        <div className='weather'>
+          <label>天気</label>
+          <input type="text" name="weather" defaultValue={weather} ref={register}/>
+        </div>
+        <div className='location'>
+          <label>場所</label>
+          <input type="text" name="location" defaultValue="鴨川" ref={register}/>
+        </div>
+      </div>
       <h3>{process.env.OPEN_WEATHER_API_KEY}</h3>
       <Map />
       <button type="submit"> 送信! </button>
