@@ -2,10 +2,9 @@
 import React, { useState, useCallback, Component } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import CurrentLocation from './CurrentLocation';
-// import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 
 const loader = new Loader({
-  apiKey: "AIzaSyCid2z16Gqk2WnI9keXIddOQ7vpQuRoMmI",
+  apiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
   version: "weekly",
   libraries: ["places"]
 });
@@ -34,7 +33,8 @@ export default class DemoComponent extends Component {
       loader.load().then((google) => {
           const map = new google.maps.Map(
               self.googleMapDiv,
-              defaultMapOptions);
+              defaultMapOptions
+          );
           this.setState({
               google: google,
               map: map

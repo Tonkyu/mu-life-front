@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
-import { SongsContext } from './App';
 import Map from './Map'
+
+// require('dotenv').config();
 
 const Search = () => {
   const { register, handleSubmit } = useForm();
@@ -15,7 +16,7 @@ const Search = () => {
     const weather_url = "https://api.openweathermap.org/data/2.5/weather?";
     const params = {
       "q": "tokyo",
-      "appid": "81924c90f4235d713c45a3c4ec2fbe83",
+      "appid": process.env.REACT_APP_OPEN_WEATHER_API_KEY,
       "units": "metric",
       "lang": "ja",
     };
@@ -57,15 +58,14 @@ const Search = () => {
   return (
   <>
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
-      月<input type="text" name="month" defaultValue={today.getMonth()+1} ref={register}/>
+      月<input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/>
       <br></br>
-      日<input type="text" name="day" defaultValue={today.getDate()} ref={register}/>
+      日<input type="text" name="day" defaultValue={today.getDate()} {...register("day")}/>
       <br></br>
-      天気<input type="text" name="weather" defaultValue={weather} ref={register}/>
+      天気<input type="text" name="weather" defaultValue={weather} {...register("weather")}/>
       <br></br>
-      場所<input type="text" name="location" defaultValue="鴨川" ref={register}/>
+      場所<input type="text" name="location" defaultValue="鴨川" {...register("location")}/>
       <br></br>
-      <h3>{process.env.OPEN_WEATHER_API_KEY}</h3>
       <Map />
       <button type="submit"> 送信! </button>
       <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
