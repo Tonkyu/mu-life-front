@@ -1,24 +1,22 @@
 /** カスタムプロパティ **/
 :root {
   --color-bg: #f4f4f4;
-  --fontsize-title: 19px;
-  --fontsize-text: 12px;
+  --fontsize-title: 16px;
+  --fontsize-text: 13px;
 }
 
 /* 全画面共通 */
 body {
     background-color: var(--color-bg);
 }
-
-/* App */
 .App {
     width: 100vw;
     height: 100vh;
 }
 button {
     display: block;
-    margin: 10vh auto;
-    width: 100px;
+    margin: 30px auto;
+    width: 110px;
     padding: 10px;
     border-radius: 20px;
     font-size: var(--fontsize-text);
@@ -27,6 +25,44 @@ button {
     color: var(--color-bg);
 }
 
+/* Search */
+.date {
+    text-align: center;
+    margin: 60px auto 30px auto;
+    font-size: var(--fontsize-title);
+}
+.date > input {
+    font-size: var(--fontsize-title);
+    width: 20px;
+    text-align: right;
+    background-color: var(--color-bg);
+    /* 日付のinputを無効化 */
+    border: none;
+    pointer-events : none;
+}
+.input {
+    width: 350px;
+    margin: 0 auto;
+}
+.weather,
+.location {
+    margin: 0 0 3px 0;
+}
+.weather > label,
+.location > label {
+    display: inline-block;
+    text-align: right;
+    width: 120px;
+    padding: 8px;
+}
+.weather > input,
+.location > input {
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    width: 120px;
+    font-size: var(--fontsize-text);
+}
 
 /* Result */
 .result {
@@ -34,11 +70,11 @@ button {
     height: 100vh;
 }
 .result-inner {
-    padding: 10vh 8vw 0 8vw;
+    padding: 50px 5vw 0 5vw;
 }
 .result-describe {
     text-align: center;
-    margin: 0 0 40px 0;
+    margin: 0 0 30px 0;
 }
 .result-describe > h1 {
     font-size: var(--fontsize-title);
@@ -55,10 +91,12 @@ button {
     box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.06);
 }
 .musicList-inner {
-    padding: 56px;
+    padding: 30px 8vw;
 }
 .music-item {
-    margin-bottom: 24px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: space-between;
 }
 .music-item:last-child {
     margin-bottom: 0;
@@ -72,4 +110,12 @@ button {
 .singer {
     font-size: var(--fontsize-text);
     margin: 0;
+}
+.music-item > a {
+    line-height: 36px;
+    text-decoration: none;
+    width: 90px;
+    font-size: var(--fontsize-text);
+    text-align: right;
+    color: rgb(116, 116, 116);
 }

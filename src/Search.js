@@ -78,14 +78,20 @@ const Search = () => {
   return (
   <>
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
-      月<input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/>
-      <br></br>
-      日<input type="text" name="day" defaultValue={today.getDate()} {...register("day")}/>
-      <br></br>
-      天気<input type="text" name="weather" defaultValue={weather} {...register("weather")}/>
-      <br></br>
-      場所<input type="text" name="location" defaultValue={loc} {...register("location")}/>
-      <br></br>
+    <div className='date'>
+        <input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/>月
+        <input type="text" name="day" defaultValue={today.getDate()} {...register("day")}/>日
+      </div>>
+      <div className='input'>
+        <div className='weather'>
+          <label>天気</label>
+          <input type="text" name="weather" defaultValue={weather} {...register("weather")}/>
+        </div>
+        <div className='location'>
+          <label>場所</label>
+          <input type="text" name="location" defaultValue={loc} {...register("location")}/>
+        </div>
+      </div>
       <Map center={center}/>
       <button type="submit"> 送信! </button>
       <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>

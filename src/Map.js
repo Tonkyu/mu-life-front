@@ -4,10 +4,10 @@ import { useCallback } from 'react';
 import { useState } from 'react';
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '40vh',
+  height: '320px',
+  margin: '0 auto'
 };
-
 
 const Map = ({center}) => {
   const { isLoaded } = useJsApiLoader({
