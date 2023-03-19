@@ -62,13 +62,13 @@ const Search = () => {
     var url = "https://mu-life-back.herokuapp.com/api/recommend";
     if(isDummy) {
       url = "https://mu-life-back.herokuapp.com/api/recommend-dummy";
+      url = "http://localhost:3001/api/recommend";
     }
     fetch(url, requestOptions)
     .then((response)=> response.json())
-    .then((responseJson) => JSON.stringify(responseJson))
     .then((res) =>{
       console.log(res);
-      navigate('/result', {state: {request:data, songs: res}})
+      navigate('/result', {state: {request:data, res: res}})
     })
     .catch((e)=>{
       return e;
