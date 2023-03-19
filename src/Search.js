@@ -66,12 +66,11 @@ const Search = () => {
     .then((response)=> response.json())
     .then((responseJson) => JSON.stringify(responseJson))
     .then((res) =>{
-        console.log("response: " + res);
-        navigate('/result', {state: {request:JSON.stringify(data), songs: res}})
+      console.log(res);
+      navigate('/result', {state: {request:data, songs: res}})
     })
     .catch((e)=>{
-      console.log(e);
-      console.log("error");
+      return e;
     })
   };
 
@@ -81,7 +80,7 @@ const Search = () => {
     <div className='date'>
         <input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/>月
         <input type="text" name="day" defaultValue={today.getDate()} {...register("day")}/>日
-      </div>>
+      </div>
       <div className='input'>
         <div className='weather'>
           <label>天気</label>

@@ -18,7 +18,7 @@ const Map = ({center}) => {
   const [map, setMap] = useState(null)
   const onLoad = useCallback(function callback(map) {
     setMap(map);
-  }, [center]);
+  }, []);
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);

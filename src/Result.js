@@ -1,20 +1,62 @@
 import React, { useEffect, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SongsContext } from './App';
+import NoMatch from './NoMatch';
 
 const Result = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const responseState = location.state;
-  const req_json = JSON.parse(responseState.request)
-  const songs_json = JSON.parse(responseState.songs);
-
+  const req_json = responseState.request
+  var status = true;
+//   const _songs_json = (() => {
+//     try {
+//         return JSON.parse(responseState.songs);
+//     } catch (e) {
+//         console.log("Error in parsing the response:\n" + responseState.songs);
+//         status = false;
+//         return null;
+//     } finally {
+//         console.log(responseState.songs);
+//     }
+//   })();
   const month = req_json.month;
   const day = req_json.day;
   const weather = req_json.weather;
   const loc = req_json.location;
 
-  return (
+  function formatSongs(_songs_json) {
+    function defaultJudge(json) {
+        if (json.hasOwnProperty("songs")) {
+            json = json.songs;
+        }
+        return JSON.parse(json);
+    };
+
+    function songNumJudge(json) {
+        const array = [1, 2, 3, 4, 5];
+        return array.map(val => json["song" + toString(val)]);
+    };
+
+    function NumJudge(json) {
+        const array = [1, 2, 3, 4, 5];
+        return array.map(val => json[toString(val)]);
+    };
+
+    const func_list = [songNumJudge, NumJudge, defaultJudge];
+
+    try {
+        console.log(func_list.map(f => f(_songs_json)))
+        return func_list.map(f => f(_songs_json)).filter(val => val[0])[0]
+    } catch (e){
+        status = false;
+        console.log(e);
+    }
+  }
+
+  const songs_json = formatSongs(responseState.songs);
+  console.log(songs_json);
+
+  return status ? (
     <div className='result'>
         <div className='result-inner'>
             <div className='result-describe'>
@@ -66,7 +108,7 @@ const Result = () => {
         </div>
         <button onClick={() => navigate('/')}>戻る</button>
     </div>
-  )
+  ) : <NoMatch />
 }
 
 export default Result;
