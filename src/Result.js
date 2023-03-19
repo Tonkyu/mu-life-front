@@ -54,7 +54,6 @@ const Result = () => {
   }
 
   const songs_json = formatSongs(responseState.songs);
-  console.log(songs_json);
 
   return status ? (
     <div className='result'>

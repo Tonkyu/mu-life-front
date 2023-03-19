@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { createContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import CurrentLocation from './CurrentLocation';
 import Map from './Map'
 
-
+export const CenterContext = createContext()
 
 const Search = () => {
   const { register, handleSubmit } = useForm();
@@ -75,7 +76,7 @@ const Search = () => {
   };
 
   return (
-  <>
+  <CenterContext.Provider value={{center, setCenter}}>
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
     <div className='date'>
         <input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/>月
@@ -91,11 +92,11 @@ const Search = () => {
           <input type="text" name="location" defaultValue={loc} {...register("location")}/>
         </div>
       </div>
-      <Map _center={center}/>
+      <Map />
       <button type="submit"> 送信! </button>
       <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
     </form>
-  </>
+  </CenterContext.Provider>
   )
 }
 

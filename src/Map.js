@@ -2,6 +2,8 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
 import { useCallback } from 'react';
 import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { CenterContext } from './Search';
 
 const containerStyle = {
   width: '40vh',
@@ -9,9 +11,9 @@ const containerStyle = {
   margin: '0 auto'
 };
 
-const Map = ({_center}) => {
+const Map = () => {
   const [map, setMap] = useState(null);
-  const [center, setCenter] = useState(_center);
+  const {center, setCenter} = useContext(CenterContext);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY
@@ -41,7 +43,7 @@ const Map = ({_center}) => {
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={_center}
+      center={center}
       zoom={14}
       onLoad={onLoad}
       onUnmount={onUnmount}
