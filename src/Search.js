@@ -91,7 +91,7 @@ const Search = () => {
           <input type="text" name="location" defaultValue={loc} {...register("location")}/>
         </div>
       </div>
-      <Map center={center}/>
+      <Map _center={center}/>
       <button type="submit"> 送信! </button>
       <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
     </form>
