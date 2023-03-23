@@ -14,6 +14,7 @@ const Result = () => {
     const weather = req_json.weather;
     const loc = req_json.location;
     const songs_json = responseState.res.songs;
+    const reason = responseState.res.reason;
 
     return responseState.res.success ? (
         <div className='result'>
@@ -21,7 +22,7 @@ const Result = () => {
                 <div className='result-describe'>
                     <h1>{month}月{day}日の{weather}の日に{loc}で<br></br>聴くのにおすすめの曲はこちら</h1>
                     <p>
-                        以下の5曲をおすすめした理由を、まとめてここに表示。以下の5曲をおすすめした理由を、まとめてここに表示。以下の5曲をおすすめした理由を、まとめてここに表示。
+                        {reason}
                     </p>
                 </div>
                 <div className='musicList'>
