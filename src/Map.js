@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
 import { useCallback } from 'react';
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
-import { CenterContext } from './Search';
+import { CenterContext } from './RoutesSetting';
 
 const containerStyle = {
   width: '40vh',

@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import { createContext } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import React, { useState, useEffect, useContext } from 'react'
+import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import CurrentLocation from './CurrentLocation';
-import Map from './Map'
 
-export const CenterContext = createContext()
+import Map from './Map'
+import { IsDummyContext } from './RoutesSetting';
+import { CenterContext } from './RoutesSetting'
 
 const Search = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const [isDummy, setIsDummy] = useState(false);
   const [weather, setWeather] = useState(undefined);
-  const [center, setCenter] = useState({lat: 35.6852, lng:139.7528});
   const [loc, setLoc] = useState(undefined);
+  const {center, setCenter} = useContext(CenterContext);
+  const {isDummy, setIsDummy} = useContext(IsDummyContext);
+
   const today = new Date();
 
   const loadWeather = (center) => {
@@ -53,7 +54,7 @@ const Search = () => {
     CurrentLocation(center).then(value => setLoc(value));
   }, [center]);
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit = (data) => {
     const requestOptions ={
       method: 'POST',
       headers:{'Content-Type': 'application/json'},
@@ -61,13 +62,11 @@ const Search = () => {
     };
     var url = "https://mu-life-back.herokuapp.com/api/recommend";
     if(isDummy) {
-      url = "https://mu-life-back.herokuapp.com/api/recommend-dummy";
       url = "http://localhost:3001/api/recommend";
     }
     fetch(url, requestOptions)
     .then((response)=> response.json())
     .then((res) =>{
-      console.log(res);
       navigate('/result', {state: {request:data, res: res}})
     })
     .catch((e)=>{
@@ -76,7 +75,6 @@ const Search = () => {
   };
 
   return (
-  <CenterContext.Provider value={{center, setCenter}}>
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
     <div className='date'>
         <input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/>月
@@ -93,10 +91,9 @@ const Search = () => {
         </div>
       </div>
       <Map />
-      <button type="submit"> 送信! </button>
+      <button type="submit" onClick={() => setIsDummy(false)}> 送信! </button>
       <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
     </form>
-  </CenterContext.Provider>
   )
 }
 

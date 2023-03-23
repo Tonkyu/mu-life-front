@@ -1,11 +1,13 @@
 import React, { useEffect, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import NoMatch from './NoMatch';
+import SpotifyPlaylist from './SpotifyPlaylist';
 
 const Result = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const responseState = location.state;
+    console.log(responseState);
     const req_json = responseState.request
     const month = req_json.month;
     const day = req_json.day;
@@ -62,6 +64,7 @@ const Result = () => {
                     </div>
                 </div>
             </div>
+            <SpotifyPlaylist data={responseState}/>
             <button onClick={() => navigate('/')}>戻る</button>
         </div>
     ) : <NoMatch />
