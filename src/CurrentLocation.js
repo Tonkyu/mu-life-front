@@ -16,10 +16,8 @@ const CurrentLocation = async (center) => {
   .then(data => data.results)
   .then(res => {
     loc = res.lv01Nm;
-    console.log(loc)
   });
 
-  console.log("loc : " + loc);
   return loc;
 }
 
