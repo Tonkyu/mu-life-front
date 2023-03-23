@@ -26,41 +26,32 @@ button {
 }
 
 /* Search */
+    /* input共通 */
+    input {
+        font-size: var(--fontsize-title);
+        width: 20px;
+        text-align: center;
+        border: none;
+        padding: 8px;
+        border-radius: 3px;
+    }
 .date {
     text-align: center;
     margin: 60px auto 30px auto;
     font-size: var(--fontsize-title);
 }
-.date > input {
-    font-size: var(--fontsize-title);
-    width: 20px;
-    text-align: right;
-    background-color: var(--color-bg);
-    /* 日付のinputを無効化 */
-    border: none;
-    pointer-events : none;
-}
 .input {
     width: 350px;
-    margin: 0 auto;
+    margin: 0 auto 10px auto;
+    text-align: center;
 }
 .weather,
 .location {
-    margin: 0 0 3px 0;
-}
-.weather > label,
-.location > label {
-    display: inline-block;
-    text-align: right;
-    width: 120px;
-    padding: 8px;
+    margin: 0 0 10px 0;
 }
 .weather > input,
 .location > input {
-    padding: 8px;
-    border: none;
-    border-radius: 3px;
-    width: 120px;
+    width: 140px;
     font-size: var(--fontsize-text);
 }
 
@@ -70,11 +61,11 @@ button {
     height: 100vh;
 }
 .result-inner {
-    padding: 50px 5vw 0 5vw;
+    padding: 5vh 5vw;
 }
 .result-describe {
     text-align: center;
-    margin: 0 0 30px 0;
+    margin: 0 0 20px 0;
 }
 .result-describe > h1 {
     font-size: var(--fontsize-title);
@@ -85,7 +76,7 @@ button {
     line-height: 16px;
     margin: 0 0 5px 0;
 }
-.musicList {
+/* .musicList {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.06);
@@ -118,4 +109,14 @@ button {
     font-size: var(--fontsize-text);
     text-align: right;
     color: rgb(116, 116, 116);
+} */
+.PlayList > iframe{
+    width: 100%;
+    border: none;
+    height: 440px;
+}
+
+
+.dummy {
+    opacity: 0.3;
 }

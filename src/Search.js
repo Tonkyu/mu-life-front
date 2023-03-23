@@ -81,18 +81,16 @@ const Search = () => {
         <input type="text" name="day" defaultValue={today.getDate()} {...register("day")}/>日
       </div>
       <div className='input'>
-        <div className='weather'>
-          <label>天気</label>
-          <input type="text" name="weather" defaultValue={weather} {...register("weather")}/>
-        </div>
         <div className='location'>
-          <label>場所</label>
-          <input type="text" name="location" defaultValue={loc} {...register("location")}/>
+          <input type="text" name="location" placeholder='今どこにいる？' defaultValue={loc} {...register("location")}/>
+        </div>
+        <div className='weather'>
+          <input type="text" name="weather" placeholder='今の天気は？' defaultValue={weather} {...register("weather")}/>
         </div>
       </div>
       <Map />
-      <button type="submit" onClick={() => setIsDummy(false)}> 送信! </button>
-      <button type="submit" onClick={() => setIsDummy(true)}> 送信!(ダミー) </button>
+      <button type="submit" onClick={() => setIsDummy(false)}>決定</button>
+      <button className='dummy' type="submit" onClick={() => setIsDummy(true)}> ダミー </button>
     </form>
   )
 }

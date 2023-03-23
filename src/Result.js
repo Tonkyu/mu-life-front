@@ -25,7 +25,7 @@ const Result = () => {
                         {reason}
                     </p>
                 </div>
-                <div className='musicList'>
+                {/* <div className='musicList'>
                     <div className='musicList-inner'>
                         <div className='music-item'>
                             <div>
@@ -63,10 +63,12 @@ const Result = () => {
                             <a target="_blank" href={'https://open.spotify.com/search/'+songs_json[4].title}>Spotifyで検索</a>
                         </div>
                     </div>
+                </div> */}
+                <div className='PlayList'>
+                    <SpotifyPlaylist data={responseState}/>
                 </div>
+                <button onClick={() => navigate('/')}>戻る</button>
             </div>
-            <SpotifyPlaylist data={responseState}/>
-            <button onClick={() => navigate('/')}>戻る</button>
         </div>
     ) : <NoMatch />
 }
