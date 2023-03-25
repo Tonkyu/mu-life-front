@@ -10,7 +10,7 @@
 body {
     background-color: var(--color-bg);
     color: #3e3e3e;
-    font-family: 'Inter';
+    font-family: 'Noto Sans JP', sans-serif;
 }
 .App {
     width: 100vw;
