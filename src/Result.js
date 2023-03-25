@@ -18,6 +18,9 @@ const Result = () => {
 
     return responseState.res.success ? (
         <div className='result'>
+            <header>
+            <img src={`${process.env.PUBLIC_URL}/logo.svg`} alt="PinTrack" />
+            </header>
             <div className='result-inner'>
                 <div className='result-describe'>
                     <h1>{month}月{day}日の{weather}の日に{loc}で<br></br>聴くのにおすすめの曲はこちら</h1>
@@ -67,7 +70,7 @@ const Result = () => {
                 <div className='PlayList'>
                     <SpotifyPlaylist data={responseState}/>
                 </div>
-                <button onClick={() => navigate('/')}>戻る</button>
+                <button className='Back' onClick={() => navigate('/')}>もどる</button>
             </div>
         </div>
     ) : <NoMatch />

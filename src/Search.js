@@ -76,20 +76,21 @@ const Search = () => {
 
   return (
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
+    <header>
+      <img src={`${process.env.PUBLIC_URL}/logo.svg`} alt="PinTrack" />
+    </header>
     <div className='date'>
-        <input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/>月
-        <input type="text" name="day" defaultValue={today.getDate()} {...register("day")}/>日
+        <input type="text" name="month" defaultValue={today.getMonth()+1} {...register("month")}/><p>月</p>
+        <input type="text" name="day" defaultValue={today.getDate()} {...register("day")}/><p>日</p>
       </div>
-      <div className='input'>
-        <div className='location'>
-          <input type="text" name="location" placeholder='今どこにいる？' defaultValue={loc} {...register("location")}/>
-        </div>
-        <div className='weather'>
-          <input type="text" name="weather" placeholder='今の天気は？' defaultValue={weather} {...register("weather")}/>
-        </div>
+      <div className='location'>
+        <input type="text" name="location" placeholder='今どこにいる？' defaultValue={loc} {...register("location")}/>
+      </div>
+      <div className='weather'>
+        <input type="text" name="weather" placeholder='今の天気は？' defaultValue={weather} {...register("weather")}/>
       </div>
       <Map />
-      <button type="submit" onClick={() => setIsDummy(false)}>決定</button>
+        <button className='enter' type="submit" onClick={() => setIsDummy(false)}>おすすめ曲を聴く</button>
       <button className='dummy' type="submit" onClick={() => setIsDummy(true)}> ダミー </button>
     </form>
   )
