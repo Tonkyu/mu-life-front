@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CurrentLocation from './CurrentLocation';
 
 import Map from './Map'
+import Loading from './Loading'
 import { IsDummyContext } from './RoutesSetting';
 import { CenterContext } from './RoutesSetting'
 
@@ -74,7 +75,7 @@ const Search = () => {
     })
   };
 
-  return (
+  return weather && loc ?(
     <form name="form" onSubmit={handleSubmit(onSubmit)}>
     <header>
       <img src={`${process.env.PUBLIC_URL}/logo.svg`} alt="PinTrack" />
@@ -92,7 +93,7 @@ const Search = () => {
       <Map />
       <button className='enter' type="submit" onClick={() => setIsDummy(false)}>おすすめ曲を聴く</button>
     </form>
-  )
+  ) : <Loading />
 }
 
 export default Search
