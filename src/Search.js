@@ -90,8 +90,7 @@ const Search = () => {
         <input type="text" name="weather" placeholder='今の天気は？' defaultValue={weather} {...register("weather")}/>
       </div>
       <Map />
-        <button className='enter' type="submit" onClick={() => setIsDummy(false)}>おすすめ曲を聴く</button>
-      <button className='dummy' type="submit" onClick={() => setIsDummy(true)}> ダミー </button>
+      <button className='enter' type="submit" onClick={() => setIsDummy(false)}>おすすめ曲を聴く</button>
     </form>
   )
 }
